@@ -1,10 +1,9 @@
 import React from 'react';
+import Home from './site/Home';
 
 const App = () => {
   return (
-    <div className="App">
-      PWA Real Estate
-    </div>
+    <Home />
   );
 }
 
