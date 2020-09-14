@@ -1,10 +1,20 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL)
-const PropertyImages = require('./property_images')
+const { Sequelize, Model, DataTypes } = require("sequelize");
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USERNAME,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: "mysql",
+  }
+);
+
+const PropertyImages = require("./property_images");
 
 class Property extends Model {}
 
-Property.init({
+Property.init(
+  {
     title: DataTypes.STRING,
     property_status: DataTypes.STRING,
     property_type: DataTypes.STRING,
@@ -20,12 +30,14 @@ Property.init({
     video: DataTypes.STRING,
     address: DataTypes.STRING,
     lang: DataTypes.STRING,
-    description: DataTypes.STRING
-}, { 
-    sequelize, 
-    modelName: 'property' 
-});
+    description: DataTypes.STRING,
+  },
+  {
+    sequelize,
+    modelName: "property",
+  }
+);
 
-Property.hasMany(PropertyImages, { foreignKey: 'pid' })
+Property.hasMany(PropertyImages, { foreignKey: "pid" });
 
-module.exports = Property
+module.exports = Property;

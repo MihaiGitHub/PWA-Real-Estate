@@ -1,8 +1,17 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
+const { Sequelize, Model, DataTypes } = require("sequelize");
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USERNAME,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: "mysql",
+  }
+);
 
 class User extends Model {}
-User.init({
+User.init(
+  {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     type: DataTypes.STRING,
@@ -18,10 +27,12 @@ User.init({
     fax: DataTypes.STRING,
     license_number: DataTypes.STRING,
     business_name: DataTypes.STRING,
-    timestamp: DataTypes.DATE
-}, { 
-    sequelize, 
-    modelName: 'user' 
-});
+    timestamp: DataTypes.DATE,
+  },
+  {
+    sequelize,
+    modelName: "user",
+  }
+);
 
 module.exports = User;

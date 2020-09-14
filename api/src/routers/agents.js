@@ -1,15 +1,13 @@
-const express = require('express');
+const express = require("express");
 const router = new express.Router();
-const User = require('../models/user');
+const { agentById, read, list } = require("../controllers/agent");
 
-router.get('/agents', async (req, res) => {
-    try {
-        const users = await User.findAll({ where: { type: 'agent' }});
+// middleware
+// anytime there is a userId param in the route execute agentById method
+router.param("agentId", agentById);
 
-        res.send(users);
-    } catch (e) {
-        res.status(404).send();
-    }
-})
+// routes
+router.get("/agent/:agentId", read);
+router.get("/agents", list);
 
 module.exports = router;
