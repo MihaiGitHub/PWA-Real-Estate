@@ -22,7 +22,7 @@ React front-end client
 `cd client`<br>
 `npm start`
 
-## Running the automation tests
+# Running the automation tests
 
 `cd api`<br>
 `npm test`<br><br>
