@@ -1,4 +1,6 @@
 const Property = require("../models/property");
+const PropertyImages = require("../models/property_images");
+
 const { Sequelize, Model, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -14,9 +16,9 @@ exports.list = async (req, res) => {
   try {
     const properties = await Property.findAll({ include: [PropertyImages] });
 
-    res.status(200).send(properties);
+    res.status(200).json(properties);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).json(e);
   }
 };
 
