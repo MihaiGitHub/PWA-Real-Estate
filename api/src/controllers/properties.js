@@ -34,8 +34,25 @@ exports.search = async (req, res) => {
       }
     );
 
-    res.status(200).json({
-      results,
+    return Promise.all(
+      results.map(async (property, index) => {
+        const [imageresults, metadata] = await sequelize.query(
+          "SELECT url, default_picture FROM properties_images WHERE pid = :pid ORDER BY default_picture DESC",
+          {
+            replacements: {
+              pid: property.id,
+            },
+          }
+        );
+
+        property.PropertyImages = imageresults;
+
+        return property;
+      })
+    ).then((results) => {
+      res.status(200).json({
+        results,
+      });
     });
   } catch (e) {
     res.status(500).json(e);
