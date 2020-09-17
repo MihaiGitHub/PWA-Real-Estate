@@ -1,17 +1,8 @@
 const express = require("express");
 const router = new express.Router();
-const Property = require("../models/property");
-const PropertyImages = require("../models/property_images");
+const { list, search } = require("../controllers/properties");
 
-// Endpoint for fetching properties
-router.get("/properties", async (req, res) => {
-  try {
-    const properties = await Property.findAll({ include: [PropertyImages] });
-
-    res.send(properties);
-  } catch (e) {
-    res.status(400).send(e);
-  }
-});
+router.get("/properties", list);
+router.get("/search/properties", search);
 
 module.exports = router;
