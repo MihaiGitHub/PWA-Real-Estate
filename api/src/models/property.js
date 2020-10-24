@@ -10,6 +10,7 @@ const sequelize = new Sequelize(
 );
 
 const PropertyImages = require("./property_images");
+const User = require("./user");
 
 class Property extends Model {}
 
@@ -39,5 +40,6 @@ Property.init(
 );
 
 Property.hasMany(PropertyImages, { foreignKey: "pid" });
+Property.belongsTo(User, { foreignKey: 'uid' });
 
 module.exports = Property;
